@@ -19,6 +19,10 @@ body {
     border-radius: 10%;
 }
 
+.container input[type="button"] {
+    cursor: pointer;
+}
+
 .container img {
     width: 150px;
 }
