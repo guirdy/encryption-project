@@ -19,7 +19,7 @@ body {
     border-radius: 10%;
 }
 
-.container input[type="button"] {
+.container input[type="file"] {
     cursor: pointer;
 }
 
