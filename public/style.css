@@ -19,12 +19,33 @@ body {
     border-radius: 10%;
 }
 
-.container input[type="file"] {
+.container button[type="button"] {
     cursor: pointer;
 }
 
 .container img {
     width: 150px;
+}
+
+button.btnSubmit {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #ffffff;
+	padding: 10px 20px;
+	background: #0048ff;
+	border-radius: 7px;
+	border: none;
+}
+
+.btnCrypt {
+    font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #ffffff;
+    padding: 5px;
+    margin: 3px;
+	background: #000000;
+	border-radius: 7px;
+	border: none;
 }
 
 #footer {

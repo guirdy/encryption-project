@@ -12,10 +12,20 @@
         <img src="/img/cyber-security.png">
         <h1>Cryptography</h1>
         <p>Open your file here (PDF files only)</p>
-        <input type="file" name="file" id="btnFile">
+        <button type="button" name="" value="submit" class="btnSubmit" onclick="getFile()">SUBMIT</button>
+        <input type="file" name="file" id="btnFile" style="display: none" onchange="showFile()">
+
+        <div class="fileList"></div>
+
+        <div class="btn" style="display: none">
+            <button type="button" name="" value="encrypt" class="btnCrypt">Encrypt</button>
+            <button type="button" name="" value="decrypt" class="btnCrypt">Decrypt</button>
+        </div>
+        
     </div>
 
     <footer id="footer"></footer>
+
     <script src="/index.js"></script>
 </body>
 </html>
