@@ -18,3 +18,4 @@ function data() {
     let year = new Date().getFullYear();
     footer.innerHTML = '<p>Copyright &copy ' + year + ' - Cryptography | Todos os direitos reservados.</p>';
 }
+

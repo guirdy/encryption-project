@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cryptography</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body onload="data()">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cryptography</title>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body onload="data()">
 
-    <div class="container">
-        <img src="/img/cyber-security.png">
-        <h1>Cryptography</h1>
-        <p>Open your file here (PDF files only)</p>
-        <button type="button" name="" value="submit" class="btnSubmit" onclick="getFile()">SUBMIT</button>
-        <input type="file" name="file" id="btnFile" style="display: none" onchange="showFile()">
+        <div class="container">
+            <img src="/img/cyber-security.png">
+            <h1>Cryptography</h1>
+            <p>Open your file here (PDF files only)</p>
+            <button type="button" name="" value="submit" class="btnSubmit" onclick="getFile()">SUBMIT</button>
+            
 
-        <div class="fileList"></div>
+            <div class="fileList"></div>
 
-        <div class="btn" style="display: none">
-            <button type="button" name="" value="encrypt" class="btnCrypt">Encrypt</button>
-            <button type="button" name="" value="decrypt" class="btnCrypt">Decrypt</button>
+            <!-- Formulário usado para enviar as informações do cliente pro servidor através do POST-->
+            <form action="/" method="POST" class="btn" style="display: none">
+                
+                <input type="file" name="file" id="btnFile" style="display: none" onchange="showFile()">
+                
+                <!-- input usado para testar criptografia-->
+                <input type="hidden" name="secret" value="Espero que isso funcione logo!!!">                
+
+                <!-- 
+                    O name é como esse botão será identificado no body, é importante que fiquem 
+                    iguais para facilitar na hora de fazer a lógica de qual botão foi escolhido 
+                    (não é obrigatório, só acho que facilita).
+
+                    O valor é o que eu estou pegando lá no arquivo crypto quando faço:
+                        let { btn_crypto } = req.body
+                    
+                -->
+                <button type="submit" name="btn_crypto" value="encrypt" class="btnCrypt">Encrypt</button>
+                <button type="submit" name="btn_crypto" value="decrypt" class="btnCrypt">Decrypt</button>
+            </form>
+
         </div>
-        
-    </div>
 
-    <footer id="footer"></footer>
+        <footer id="footer"></footer>
 
-    <script src="/index.js"></script>
-</body>
+        <script src="/index.js"></script>
+    </body>
 </html>
