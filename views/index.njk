@@ -20,10 +20,10 @@
             <!-- Formulário usado para enviar as informações do cliente pro servidor através do POST-->
             <form action="/" method="POST" class="btn" style="display: none">
                 
-                <input type="file" name="file" id="btnFile" style="display: none" onchange="showFile()">
+                <input type="file" name="file" id="btnFile" style="display: none" onchange="showFile(this)">
                 
                 <!-- input usado para testar criptografia-->
-                <input type="hidden" name="secret" value="Espero que isso funcione logo!!!">                
+                <input type="hidden" name="secret" value="Oi">                
 
                 <!-- 
                     O name é como esse botão será identificado no body, é importante que fiquem 
@@ -41,7 +41,7 @@
         </div>
 
         <footer id="footer"></footer>
-
+        
         <script src="/index.js"></script>
     </body>
 </html>
