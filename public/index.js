@@ -17,7 +17,7 @@ function showFile(arquivo) {
         let file = arquivo.files[0];
         console.log(file);
     } else {
-        list.innerHTML = '<p>O arquivo não é um PDF</p>';
+        list.innerHTML = '<p>This is not a PDF file</p>';
         list.style.color = '#ff0000';
 
         let buttonsCrypt = document.querySelector('.btn');
