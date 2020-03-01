@@ -18,12 +18,12 @@
             <div class="fileList"></div>
 
             <!-- Formulário usado para enviar as informações do cliente pro servidor através do POST-->
-            <form action="/" method="POST" class="btn" style="display: none">
+            <form action="/" method="POST" class="btn" style="display: none" enctype="multipart/form-data">
                 
-                <input type="file" name="file" id="btnFile" style="display: none" onchange="showFile(this)">
+                <input type="file" name="fileupload" id="btnFile" style="display: none" onchange="showFile(this)" >
                 
                 <!-- input usado para testar criptografia-->
-                <input type="hidden" name="secret" value="Oi">                
+                <!--<input type="hidden" name="secret" value="Oi">    -->   
 
                 <!-- 
                     O name é como esse botão será identificado no body, é importante que fiquem 

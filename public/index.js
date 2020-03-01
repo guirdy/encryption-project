@@ -1,4 +1,5 @@
 let inputFile = document.querySelector('#btnFile');
+let buttonsCrypt = document.querySelector('.btn');
 
 function getFile() {
     inputFile.click();
@@ -11,7 +12,6 @@ function showFile(arquivo) {
         list.innerHTML = '<p>File: ' + event.target.files[0].name + '</p>';
         list.style.color = '#00e600';
 
-        let buttonsCrypt = document.querySelector('.btn');
         buttonsCrypt.style.display = 'inline-block';
 
         let file = arquivo.files[0];
@@ -20,7 +20,6 @@ function showFile(arquivo) {
         list.innerHTML = '<p>This is not a PDF file</p>';
         list.style.color = '#ff0000';
 
-        let buttonsCrypt = document.querySelector('.btn');
         buttonsCrypt.style.display = 'none';
     }
     

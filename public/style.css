@@ -23,6 +23,10 @@ body {
     cursor: pointer;
 }
 
+.container button[type="submit"] {
+    cursor: pointer;
+}
+
 .container img {
     width: 150px;
 }
