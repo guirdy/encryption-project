@@ -7,14 +7,23 @@ function getFile() {
 function showFile(arquivo) {
     let list = document.querySelector('.fileList');
 
-    list.innerHTML = '<p>File: ' + event.target.files[0].name + '</p>';
-    list.style.color = '#00e600';
+    if(arquivo.files[0].type == 'application/pdf') {
+        list.innerHTML = '<p>File: ' + event.target.files[0].name + '</p>';
+        list.style.color = '#00e600';
 
-    let buttonsCrypt = document.querySelector('.btn');
-    buttonsCrypt.style.display = 'inline-block';
+        let buttonsCrypt = document.querySelector('.btn');
+        buttonsCrypt.style.display = 'inline-block';
 
-    let file = arquivo.files[0];
-    console.log(file);
+        let file = arquivo.files[0];
+        console.log(file);
+    } else {
+        list.innerHTML = '<p>O arquivo não é um PDF</p>';
+        list.style.color = '#ff0000';
+
+        let buttonsCrypt = document.querySelector('.btn');
+        buttonsCrypt.style.display = 'none';
+    }
+    
 }
 
 function data() {
