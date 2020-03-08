@@ -4,8 +4,7 @@ const Cryptr = require('cryptr');
 const fs = require('fs');
 const pdf = require('pdf-parse');
 
-const createPDF = require('pdfkit'); //teste
-var myDoc = new createPDF; //teste
+const createPDF = require('pdfkit'); 
 
 //Biblioteca node para upload de arquivos
 const multer = require('multer');
@@ -43,7 +42,7 @@ routes.post('/', upload.single('fileupload'), function (req, res) {
     let dataBuffer = fs.readFileSync("./uploads/crypt-this.pdf");
 
     // função assíncrona para o valor ser retornado somente quando o texto do pdf for extraído e movido para a const text
-    async function createPDF() {
+    async function createPdf() {
         const text = await pdf(dataBuffer).then(function (data) {
             return (data.text);
         })
@@ -52,14 +51,16 @@ routes.post('/', upload.single('fileupload'), function (req, res) {
         const encryptedString = cryptr.encrypt(text)
 
         // coloquei pra ele criar o arquivo no back mesmo
+        const myDoc = new createPDF; 
         myDoc.pipe(fs.createWriteStream('./uploads/encrypted-file.pdf'));
         myDoc.text(encryptedString,100,100);
+        myDoc.end();
 
         // redireciona para a rota responsável pelo download
         return res.redirect('download');
     }
     
-    createPDF();
+    createPdf();
 });
 
 module.exports = routes;
