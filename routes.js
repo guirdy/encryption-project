@@ -4,6 +4,9 @@ const Cryptr = require('cryptr');
 const fs = require('fs');
 const pdf = require('pdf-parse');
 
+const createPDF = require('pdfkit'); //teste
+var myDoc = new createPDF; //teste
+
 //Biblioteca node para upload de arquivos
 const multer = require('multer');
 
@@ -40,7 +43,13 @@ routes.post('/', upload.single('fileupload'), function (req, res, next) {
         const encryptedString = cryptr.encrypt(text)
         const decryptedString = cryptr.decrypt(encryptedString);
 
-        return res.send(`PDF Criptografado:\n\n${encryptedString}\nPDF Original:\n\n${decryptedString}` );
+        myDoc.pipe(fs.createWriteStream('public/uploads/encrypted-file.pdf'));
+
+        myDoc.text(encryptedString,100,100);
+
+        myDoc.end();
+
+        return res.send(`PDF Criptografado:\n\n${encryptedString}\nPDF Original:\n\n${decryptedString}`);
     }
     
     read_pdf();
