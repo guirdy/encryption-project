@@ -2,7 +2,7 @@
 
 Project developed in JavaScript for cryptography of PDF files.
 
-![] (https://github.com/Guirdy/encryption-project/blob/master/public/img/index-file.jpg)
+![] (public/img/index-file.jpg)
 
 ### API's used
 
