@@ -43,54 +43,101 @@ routes.post('/', upload.single('fileupload'), function (req, res) {
 
     // função assíncrona para o valor ser retornado somente quando o texto do pdf for extraído e movido para a const text
     async function createPdf() {
-        // extração do texto do pdf para a variável text
-        let text = await pdf(dataBuffer).then(function (data) {
-            return (data.text);
-        })
-
-
-        const cryptr = new Cryptr('senha_secreta'); //precisamos mudar a "senha secreta"
-
-        // é feita a criptografia da text
-        let encryptedString = cryptr.encrypt(text)
-
-        // aqui é definido o conteúdo do pdf 
-        var documentDefinition = {
-            // dentro da content fica a parte de texto a ser inserido,
-
-            // da pra colocar várias coisas no vetor, é só separar por vírgula mesmo
-
-            // por padrão, cada posição do vetor ocupa uma linha, é como se tivesse um <br> entre eles
-            // porém se vc joga uma string muito grande uma posição ele se adapta e preenche certinho o pdf então n tem problema
-            content: [
-                // aqui é feita a compressão da criptografia
-                // temos que verificar se é viável e funcional fazer essa compressão pra depois descomprimir e descriptografar
-                lzma.compress(encryptedString)
-
-                // para descriptografar seria lzmma.decompress()
-            ]
-        };
-
-
         
-        // aqui o pdf é criado a partir daquele conteúdo definido
-        const pdfDoc = pdfMake.createPdf(documentDefinition);
+        if(req.body.btn_crypto == 'encrypt') {
+            // extração do texto do pdf para a variável text
+            let text = await pdf(dataBuffer).then(function (data) {
+                return (data.text);
+            })
 
-        // essa é a parte que ele começa a passar pro browser para ser baixado
-        pdfDoc.getBase64((data) => {
-            res.writeHead(200,
-                {
-                    'Content-Type': 'application/pdf',
-                    // o encrypted.pdf é nome que ficou por padrão, mas da pra alterar pro nome que quiser 
-                    'Content-Disposition': `attachment;filename="encrypted.pdf"`
+
+            const cryptr = new Cryptr('senha_secreta'); //precisamos mudar a "senha secreta"
+
+            // é feita a criptografia da text
+            let encryptedString = cryptr.encrypt(text)
+
+            // aqui é definido o conteúdo do pdf 
+            let documentDefinition = {
+                // dentro da content fica a parte de texto a ser inserido,
+
+                // da pra colocar várias coisas no vetor, é só separar por vírgula mesmo
+
+                // por padrão, cada posição do vetor ocupa uma linha, é como se tivesse um <br> entre eles
+                // porém se vc joga uma string muito grande uma posição ele se adapta e preenche certinho o pdf então n tem problema
+                content: [
+                    // aqui é feita a compressão da criptografia
+                    // temos que verificar se é viável e funcional fazer essa compressão pra depois descomprimir e descriptografar
+                    lzma.compress(encryptedString)
+
+                    // para descriptografar seria lzmma.decompress()
+                ]
+            };
+            
+            // aqui o pdf é criado a partir daquele conteúdo definido
+            const pdfDoc = pdfMake.createPdf(documentDefinition);
+
+            // essa é a parte que ele começa a passar pro browser para ser baixado
+            pdfDoc.getBase64((data) => {
+                res.writeHead(200,
+                    {
+                        'Content-Type': 'application/pdf',
+                        // o encrypted.pdf é nome que ficou por padrão, mas da pra alterar pro nome que quiser 
+                        'Content-Disposition': `attachment;filename="encrypted.pdf"`
+                    });
+                    
+                    const download = Buffer.from(data.toString('utf-8'), 'base64');
+                    res.end(download);
                 });
-                
-                const download = Buffer.from(data.toString('utf-8'), 'base64');
-                res.end(download);
-            });
+        } else {
+
+            // extração do texto do pdf para a variável text
+            let text = await pdf(dataBuffer).then(function (data) {
+                return (data.text);
+            })
+
+            const cryptr = new Cryptr('senha_secreta'); //precisamos mudar a "senha secreta"
+
+            // aqui é definido o conteúdo do pdf 
+            let documentDefinition = {
+                // dentro da content fica a parte de texto a ser inserido,
+
+                // da pra colocar várias coisas no vetor, é só separar por vírgula mesmo
+
+                // por padrão, cada posição do vetor ocupa uma linha, é como se tivesse um <br> entre eles
+                // porém se vc joga uma string muito grande uma posição ele se adapta e preenche certinho o pdf então n tem problema
+                content: [
+                    // aqui é feita a compressão da criptografia
+                    // temos que verificar se é viável e funcional fazer essa compressão pra depois descomprimir e descriptografar
+                    lzma.decompress(text)
+
+                    // para descriptografar seria lzmma.decompress()
+                ]
+            };
+
+            // é feita a criptografia da text
+            let decryptedString = cryptr.decrypt(documentDefinition)
+
+            // aqui o pdf é criado a partir daquele conteúdo definido
+            const pdfDoc = pdfMake.createPdf(decryptedString);
+
+            // essa é a parte que ele começa a passar pro browser para ser baixado
+            pdfDoc.getBase64((data) => {
+                res.writeHead(200,
+                    {
+                        'Content-Type': 'application/pdf',
+                        // o encrypted.pdf é nome que ficou por padrão, mas da pra alterar pro nome que quiser 
+                        'Content-Disposition': `attachment;filename="decrypted.pdf"`
+                    });
+                    
+                    const download = Buffer.from(data.toString('utf-8'), 'base64');
+                    res.end(download);
+                });
+
         }
+    
+    }
         
-        createPdf();
+    createPdf();
 });
 
 module.exports = routes;
