@@ -15,7 +15,7 @@ body {
     color: aliceblue;
     margin: 11vh auto 0 auto;
     width: 35vw;
-    height: 70vh;
+    height: 75vh;
     border-radius: 10%;
 }
 
@@ -28,7 +28,7 @@ body {
 }
 
 .container img {
-    width: 150px;
+    width: 30%;
 }
 
 button.btnSubmit {
@@ -58,4 +58,24 @@ button.btnSubmit {
     text-align: center;
     margin: 10px;
     padding: 5px;
+}
+
+@media(max-width: 900px){
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: #141414;
+        font-family: Arial, Helvetica, sans-serif;
+        color: aliceblue;
+        margin: 11vh auto 0 auto;
+        width: 60vw;
+        height: 80vh;
+        border-radius: 10%;
+    }
+    .container img {
+        width: 30%;
+    }
 }
