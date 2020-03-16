@@ -60,7 +60,7 @@ button.btnSubmit {
     padding: 5px;
 }
 
-@media(max-width: 900px){
+@media(max-width: 1000px){
     .container {
         display: flex;
         flex-direction: column;
@@ -74,8 +74,5 @@ button.btnSubmit {
         width: 60vw;
         height: 80vh;
         border-radius: 10%;
-    }
-    .container img {
-        width: 30%;
     }
 }
