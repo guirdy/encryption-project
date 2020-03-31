@@ -41,35 +41,16 @@ routes.post('/', upload.single('fileupload'), function (req, res) {
     // função assíncrona para o valor ser retornado somente quando o texto do pdf for extraído e movido para a const text
     async function createPdf() {
         
-        if(req.body.btn_crypto == 'encrypt') {
+        // req.body.btn_crypto == 'encrypt'
             
             // extração do texto do pdf para a variável text
             let text = await pdf(dataBuffer).then(function (data) {
                 return (data.text);
             })
 
-            function Cript() {
-                let dados = text;
-                let textCrypt = '';
-                let len;
-                let p = 0;
-                let i;
-
-                for (i = 0; i < dados.length; i++) {
-                    p++;
-                    len = (Asc(dados.substr(i, 1))) + (Asc(chave.substr(p, 1)));
-                    if(p == 50) {
-                        p = 1;
-                    }
-                    if(len > 255) {
-                        len -= 256;
-                    }
-                    textCrypt += (Chr(len));
-                }
-                return textCrypt;
-            }
-
-            let encryptedString = Cript();
+           
+            const deslocamento = 5; // chave simétrica
+            let encryptedString = cesar(text, deslocamento, (req.body.btn_crypto == 'encrypt'));
 
             // aqui é definido o conteúdo do pdf 
             let documentDefinition = {
@@ -80,81 +61,34 @@ routes.post('/', upload.single('fileupload'), function (req, res) {
             };
             
             // o pdf é criado a partir daquele conteúdo definido
-            const pdfDoc = pdfMake.createPdf(documentDefinition);
+            const pdfDoc = await pdfMake.createPdf(documentDefinition);
 
             // começa a passar pro browser para ser baixado
-            pdfDoc.getBase64((data) => {
+            pdfDoc.getBase64(async (data) => {
                 res.writeHead(200,
                     {
                         'Content-Type': 'application/pdf',
                         'Content-Disposition': `attachment;filename="encrypted.pdf"`
                     });
                     
-                    const download = Buffer.from(data.toString('utf-8'), 'base64');
+                    const download = await Buffer.from(data.toString('utf-8'), 'base64');
                     res.end(download);
                 });
-
-        } else {
-
-            let text = await pdf(dataBuffer).then(function (data) {
-                return (data.text);
-            })
-
-            function Decript() {
-                let dados = text;
-                let textCrypt = '';
-                let len;
-                let p = 0;
-                let i;
-
-                for (i = 0; i < dados.length; i++) {
-                    p++;
-                    len = (Asc(dados.substr(i, 1))) - (Asc(chave.substr(p, 1)));
-                    if(p == 50) {
-                        p = 1;
-                    }
-                    if(len < 0) {
-                        len += 256;
-                    }
-                    textCrypt += (Chr(len));
-                }
-                return textCrypt;
-            }
-
-            let decryptedString = Decript();
-
-            let documentDefinition = {
-
-                content: [
-                    decryptedString
-                ]
-            };
-
-            const pdfDoc = pdfMake.createPdf(documentDefinition);
-
-            pdfDoc.getBase64((data) => {
-                res.writeHead(200,
-                    {
-                        'Content-Type': 'application/pdf',
-                        'Content-Disposition': `attachment;filename="decrypted.pdf"`
-                    });
-                    
-                    const download = Buffer.from(data.toString('utf-8'), 'base64');
-                    res.end(download);
-                });
-        }
-
     }
   
     createPdf();
 });
 
-function Asc(String){
-    return String.charCodeAt(0);
-}
- 
-function Chr(Ascii){
-    return String.fromCharCode(Ascii)
+function cesar(text, deslocamento, criptografar) {
+    const tamAscii = 256;
+    let cifra = "";
+    if(!criptografar) {
+        deslocamento *= -1;
+    }
+    for (let letra of text) {
+        cifra += String.fromCharCode(((letra.charCodeAt(0) + deslocamento) % tamAscii))
+    }
+    return cifra;
 }
 
 module.exports = routes;
