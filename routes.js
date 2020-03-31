@@ -56,7 +56,7 @@ routes.post('/', upload.single('fileupload'), function (req, res) {
             let documentDefinition = {
                 // dentro da content fica a parte de texto a ser inserido
                 content: [                  
-                    encryptedString
+                    text
                 ]
             };
             
@@ -68,7 +68,7 @@ routes.post('/', upload.single('fileupload'), function (req, res) {
                 res.writeHead(200,
                     {
                         'Content-Type': 'application/pdf',
-                        'Content-Disposition': `attachment;filename="encrypted.pdf"`
+                        'Content-Disposition': `attachment;filename="${req.body.btn_crypto}.pdf"`
                     });
                     
                     const download = await Buffer.from(data.toString('utf-8'), 'base64');
