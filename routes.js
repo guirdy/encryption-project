@@ -8,6 +8,8 @@ const pdf = require('pdf-parse');
 const pdfMake = require('pdfmake/build/pdfmake');
 const vfsFonts = require('pdfmake/build/vfs_fonts');
 
+let chave = 'abcdefghijklmnopqrstuvyxwzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
 // por padrão eles usam a fonte roboto que está no vfs_fonts, aqui é a configuração pro pdfMake utilizar ela
 pdfMake.vfs = vfsFonts.pdfMake.vfs; 
 
@@ -46,18 +48,34 @@ routes.post('/', upload.single('fileupload'), function (req, res) {
                 return (data.text);
             })
 
+            function Cript() {
+                let dados = text;
+                let textCrypt = '';
+                let len;
+                let p = 0;
+                let i;
 
-            const cryptr = new Cryptr('senha_secreta'); //precisamos mudar a "senha secreta"
+                for (i = 0; i < dados.length; i++) {
+                    p++;
+                    len = (Asc(dados.substr(i, 1))) + (Asc(chave.substr(p, 1)));
+                    if(p == 50) {
+                        p = 1;
+                    }
+                    if(len > 255) {
+                        len -= 256;
+                    }
+                    textCrypt += (Chr(len));
+                }
+                return textCrypt;
+            }
 
-            let encryptedString = cryptr.encrypt(text)
+            let encryptedString = Cript();
 
             // aqui é definido o conteúdo do pdf 
             let documentDefinition = {
                 // dentro da content fica a parte de texto a ser inserido
-                content: [
-                    
+                content: [                  
                     encryptedString
-
                 ]
             };
             
@@ -82,17 +100,33 @@ routes.post('/', upload.single('fileupload'), function (req, res) {
                 return (data.text);
             })
 
-            const cryptr = new Cryptr('senha_secreta'); //precisamos mudar a "senha secreta"
+            function Decript() {
+                let dados = text;
+                let textCrypt = '';
+                let len;
+                let p = 0;
+                let i;
 
-            // é feita a descriptografia da text
-            let decryptedString = cryptr.decrypt(text)
+                for (i = 0; i < dados.length; i++) {
+                    p++;
+                    len = (Asc(dados.substr(i, 1))) - (Asc(chave.substr(p, 1)));
+                    if(p == 50) {
+                        p = 1;
+                    }
+                    if(len < 0) {
+                        len += 256;
+                    }
+                    textCrypt += (Chr(len));
+                }
+                return textCrypt;
+            }
+
+            let decryptedString = Decript();
 
             let documentDefinition = {
 
                 content: [
-
                     decryptedString
-
                 ]
             };
 
@@ -108,12 +142,19 @@ routes.post('/', upload.single('fileupload'), function (req, res) {
                     const download = Buffer.from(data.toString('utf-8'), 'base64');
                     res.end(download);
                 });
-
         }
-    
+
     }
-        
+  
     createPdf();
 });
+
+function Asc(String){
+    return String.charCodeAt(0);
+}
+ 
+function Chr(Ascii){
+    return String.fromCharCode(Ascii)
+}
 
 module.exports = routes;
