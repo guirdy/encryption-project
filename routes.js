@@ -56,7 +56,7 @@ routes.post('/', upload.single('fileupload'), function (req, res) {
             let documentDefinition = {
                 // dentro da content fica a parte de texto a ser inserido
                 content: [                  
-                    text
+                    encryptedString
                 ]
             };
             
