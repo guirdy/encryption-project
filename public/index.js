@@ -8,21 +8,19 @@ function getFile() {
 function showFile(arquivo) {
     let list = document.querySelector('.fileList');
 
-    if(arquivo.files[0].type == 'application/pdf') {
+    if(arquivo.files[0].type == 'text/plain') {
         list.innerHTML = '<p>File: ' + event.target.files[0].name + '</p>';
         list.style.color = '#00e600';
 
         buttonsCrypt.style.display = 'inline-block';
 
         let file = arquivo.files[0];
-        console.log(file);
     } else {
-        list.innerHTML = '<p>This is not a PDF file</p>';
+        list.innerHTML = '<p>This is not a TXT file</p>';
         list.style.color = '#ff0000';
 
         buttonsCrypt.style.display = 'none';
     }
-    
 }
 
 function data() {

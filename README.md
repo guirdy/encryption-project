@@ -1,27 +1,24 @@
-# Encryption Project
+# Cryptography
 
-Project developed in JavaScript for cryptography of PDF files.
-
-
-## Project
-
-![](https://github.com/Guirdy/encryption-project/blob/master/public/img/index-file.jpg?raw=true)
+Projeto desenvolvido para criptografia de arquivos txt, sua criptografia se baseia na [Cifra de Cesar](https://pt.wikipedia.org/wiki/Cifra_de_C%C3%A9sar), na qual cada letra do texto é substituída por outra presente no alfabeto abaixo dela um número fixo de vezes.
 
 
-## API's used
+## Projeto
+<p align="center">
+    <img src="https://github.com/Guirdy/encryption-project/blob/master/public/img/cyber-security-print.png?raw=true">
+</p>
 
-* [cryptr](https://www.npmjs.com/package/cryptr)
+
+## API's usadas
+
 * [express](https://github.com/expressjs/express)
 * [multer](https://github.com/expressjs/multer)
-* [nunjucks](https://github.com/mozilla/nunjucks)
-* [pdf-parse](https://www.npmjs.com/package/pdf-parse)
-* [pdfmake](https://www.npmjs.com/package/pdfmake)
 
 
-## Authors
+## Autores do projeto
 
 * [Guilherme Leandro Rolim](https://github.com/Guirdy)
 * [Paulo D'Elia](https://github.com/paulodelia)
 
 
-See also the list of [contributors](https://github.com/Guirdy/encryption-project/graphs/contributors) who participated in this project.
+Veja a lista de [contribuidores](https://github.com/Guirdy/encryption-project/graphs/contributors) que participaram do projeto.

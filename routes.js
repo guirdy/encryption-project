@@ -1,17 +1,6 @@
 const express = require('express');
 const routes = express.Router();
-const Cryptr = require('cryptr');
 const fs = require('fs');
-const pdf = require('pdf-parse');
-
-// biblioteca de criar pdfs
-const pdfMake = require('pdfmake/build/pdfmake');
-const vfsFonts = require('pdfmake/build/vfs_fonts');
-
-let chave = 'abcdefghijklmnopqrstuvyxwzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-// por padrão eles usam a fonte roboto que está no vfs_fonts, aqui é a configuração pro pdfMake utilizar ela
-pdfMake.vfs = vfsFonts.pdfMake.vfs; 
 
 //Biblioteca node para upload de arquivos
 const multer = require('multer');
@@ -22,7 +11,7 @@ const storage = multer.diskStorage({
         cb(null, './uploads')
     },
     filename: function (req, file, cb) {
-        cb(null, 'crypt-this.pdf');
+        cb(null, 'crypt-this.txt');
     }
 });
 
@@ -36,49 +25,31 @@ routes.get('/', function (req, res) {
 // rota para o post do localhost:5000
 routes.post('/', upload.single('fileupload'), function (req, res) {
 
-    let dataBuffer = fs.readFileSync("./uploads/crypt-this.pdf");
+    function createFile() {
 
-    // função assíncrona para o valor ser retornado somente quando o texto do pdf for extraído e movido para a const text
-    async function createPdf() {
-        
-        // req.body.btn_crypto == 'encrypt'
-            
-            // extração do texto do pdf para a variável text
-            let text = await pdf(dataBuffer).then(function (data) {
-                return (data.text);
-            })
-
-           
-            const deslocamento = 5; // chave simétrica
-            let encryptedString = cesar(text, deslocamento, (req.body.btn_crypto == 'encrypt'));
-
-            // aqui é definido o conteúdo do pdf 
-            let documentDefinition = {
-                // dentro da content fica a parte de texto a ser inserido
-                content: [                  
-                    encryptedString
-                ]
-            };
-            
-            // o pdf é criado a partir daquele conteúdo definido
-            const pdfDoc = await pdfMake.createPdf(documentDefinition);
-
-            // começa a passar pro browser para ser baixado
-            pdfDoc.getBase64(async (data) => {
-                res.writeHead(200,
-                    {
-                        'Content-Type': 'application/pdf',
-                        'Content-Disposition': `attachment;filename="${req.body.btn_crypto}.pdf"`
-                    });
-                    
-                    const download = await Buffer.from(data.toString('utf-8'), 'base64');
-                    res.end(download);
+        // leitura do arquivo
+        fs.readFile('./uploads/crypt-this.txt', 'utf8', function(err, data) {
+            if(err) {
+                console.error('Could not open file: %s', err)
+                process.exit(1)
+            }
+            let encryptedString = cesar(data, 5, (req.body.btn_crypto == 'encrypt'))
+            //Cria o arquivo txt
+            res.writeHead(200,
+                {
+                    'Content-Type': 'text/plain',
+                    'Content-Disposition': `attachment;filename="${req.body.btn_crypto}.txt"`
                 });
+            //Faz download do arquivo no navegador  
+            const download = Buffer.from(encryptedString);
+            res.end(download);
+        })
     }
   
-    createPdf();
+    createFile();
 });
 
+//Função de criptografia baseada em Cifra de Cesar
 function cesar(text, deslocamento, criptografar) {
     const tamAscii = 256;
     let cifra = "";
