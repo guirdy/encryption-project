@@ -11,7 +11,7 @@ Projeto desenvolvido para criptografia de arquivos txt, sua criptografia se base
 ## API's utilizadas
 
 * [express](https://github.com/expressjs/express)
-* [multer](https://github.com/expressjs/multer)
+* [formidable](https://github.com/node-formidable/formidable)
 
 
 ## Autores do projeto
