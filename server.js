@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 // arquivo separado para rotas para deixar a visualização mais fácil
 const routes = require('./src/routes');
 
