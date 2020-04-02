@@ -5,7 +5,7 @@ Projeto desenvolvido para criptografia de arquivos txt, sua criptografia se base
 
 ## Projeto
 <p align="center">
-    <img width=500 src="https://github.com/Guirdy/encryption-project/blob/master/public/img/cyber-security-print.png?raw=true">
+    <img width=700 src="https://github.com/Guirdy/encryption-project/blob/master/public/img/cyber-security-print.png?raw=true">
 </p>
 
 ## API's usadas
