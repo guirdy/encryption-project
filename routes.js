@@ -19,7 +19,7 @@ const upload = multer({ storage });
 
 // rota padrão para quando acessa o localhost:5000 
 routes.get('/', function (req, res) {
-    return res.render("index")
+    return res.sendFile("./views/index.html", { root: __dirname } );
 });
 
 // rota para o post do localhost:5000
