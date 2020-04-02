@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const formidable = require('formidable');
 
 function cesar(text, deslocamento, criptografar) {
@@ -17,11 +18,14 @@ module.exports = {
     createFile(req, res) {
         const form = new formidable.IncomingForm();
         form.parse(req, function (err, fields, files) {
-            
-            const path = files.filetoupload.path;
+
+            const filePath = files.filetoupload.path;
+            if (path.extname(filePath + '\\' + files.filetoupload.name) != '.txt') {
+                return res.send("Please, don't try to send non .txt files!")
+            }
 
             // leitura do arquivo
-            fs.readFile(path, 'utf8', function (err, data) {
+            fs.readFile(filePath, 'utf8', function (err, data) {
                 if (err) {
                     console.error('Could not open file: %s', err)
                     process.exit(1)
