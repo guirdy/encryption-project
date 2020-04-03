@@ -1,6 +1,6 @@
 # Cryptography
 
-Projeto desenvolvido para criptografia de arquivos txt, sua criptografia se baseia na [Cifra de Cesar](https://pt.wikipedia.org/wiki/Cifra_de_C%C3%A9sar), na qual cada letra do texto é substituída por outra presente no alfabeto abaixo dela um número fixo de vezes.
+Projeto desenvolvido para criptografia de arquivos txt, sua criptografia se baseia na [Cifra de César](https://pt.wikipedia.org/wiki/Cifra_de_C%C3%A9sar), na qual cada letra do texto é substituída por outra presente no alfabeto abaixo dela um número fixo de vezes.
 
 
 ## Projeto
@@ -11,7 +11,7 @@ Projeto desenvolvido para criptografia de arquivos txt, sua criptografia se base
 ## API's utilizadas
 
 * [express](https://github.com/expressjs/express)
-* [multer](https://github.com/expressjs/multer)
+* [formidable](https://github.com/node-formidable/formidable)
 
 
 ## Autores do projeto

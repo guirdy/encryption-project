@@ -36,9 +36,14 @@ button.btnSubmit {
 	font-size: 13px;
 	color: #ffffff;
 	padding: 10px 20px;
-	background: #0048ff;
+	background: #1154ff;
 	border-radius: 7px;
-	border: none;
+    border: none;
+    transition: filter 0.2s;
+}
+
+.btnSubmit:hover {
+    filter: brightness(80%);
 }
 
 .btnCrypt {
@@ -49,7 +54,12 @@ button.btnSubmit {
     margin: 3px;
 	background: #000000;
 	border-radius: 7px;
-	border: none;
+    border: none;
+    transition: filter 0.2s
+}
+
+.btnCrypt:hover {
+    filter: brightness(60%);
 }
 
 #footer {
