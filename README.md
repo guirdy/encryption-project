@@ -8,7 +8,7 @@ Projeto desenvolvido para criptografia de arquivos txt, sua criptografia se base
     <img width=700 src="https://github.com/Guirdy/encryption-project/blob/master/public/img/cyber-security-print.png?raw=true">
 </p>
 
-## API's utilizadas
+## Libs utilizadas
 
 * [express](https://github.com/expressjs/express)
 * [formidable](https://github.com/node-formidable/formidable)
